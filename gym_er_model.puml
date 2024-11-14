@@ -1,0 +1,53 @@
+@startuml Gym Management System
+
+' Styling
+skinparam class {
+    BackgroundColor LightBlue
+    ArrowColor Black
+    BorderColor Black
+}
+
+' Entities
+entity "Gymnasium" {
+    * gym_id : number <<generated>>
+    --
+    * name : text
+    * address : text
+    * phone_number : text
+}
+
+entity "Member" {
+    * member_id : number <<generated>>
+    --
+    * last_name : text
+    * first_name : text
+    * address : text
+    * date_of_birth : date
+    * gender : text
+    * registration_date : date
+}
+
+entity "Session" {
+    * session_id : number <<generated>>
+    --
+    * sport_type : text
+    * schedule : datetime
+    * max_capacity : number = 20
+}
+
+entity "Coach" {
+    * coach_id : number <<generated>>
+    --
+    * last_name : text
+    * first_name : text
+    * age : number
+    * specialty : text
+}
+
+' Relationships
+Gymnasium ||--o{ Member : "registers at"
+Session }o--|| Gymnasium : "belongs to"
+Member }o--o{ Session : "attends"
+Coach }o--o{ Session : "leads (max 2)"
+
+@enduml
